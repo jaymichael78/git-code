@@ -1,0 +1,34 @@
+The scenario is:
+
+    multiple people working on a repo in separate branched.
+    1 person has merged to remote master a single updated file.
+    The other person needs to get that update to their working local branch.
+
+
+The flow is:
+
+    The person needed the updated master file
+        add, commit and push their local branch to remote branch. So that there local and remote branch have no deltas.
+        then switch to local branch to master
+        then fetch and ensure the local master has no deltas with remote master
+        switch back to working local branch
+        checkout the file from master to local
+
+
+# add, commit and push their local branch to remote branch. So that there local and remote branch have no deltas.
+$ git add -A
+$ git commit -m "<your message>"
+$ git push origin <your branch>
+
+# then switch to local branch to master
+$ git checkout master
+
+# then fetch and ensure the local master has no deltas with remote master
+$ git fetch
+$ git reset --hard origin/master
+
+# switch back to working local branch
+$ git checkout <your branch>
+
+# checkout the file from master to local
+$ git checkout master <file name - add directory if needed>
